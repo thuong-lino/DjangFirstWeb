@@ -1,0 +1,50 @@
+{%extends 'enroll/base_enroll.html'%}
+{%load humanize%}
+{%block cssblock%}
+<style>
+    span.district{
+        color:red;
+    }
+
+
+</style>
+{%endblock%}
+{% block content_class%}
+
+<table class="table table-bordered">
+    <thead align="center">
+
+    <tr>
+        <th scope="col">Mã số</th>
+        <th scope="col" colspan="2">Lớp | Môn <br>Thời gian học</th>
+        <th scope="col">Địa chỉ</th>
+        <th scope="col" colspan="2">Thông tin lớp</th>
+        <th scope="col">Yêu cầu khác</th>
+        <th scope="col">Đăng kí</th>
+    </tr>
+    </thead>
+    {%for each in q%}
+
+    <tbody align="center">
+    <tr>
+        <th style="vertical-align: middle" scope="row" rowspan="2">{{each.class_id|stringformat:"04d"}}</th>
+        <td style="vertical-align: middle">L.{{each.lop}}</td>
+        <td style="vertical-align: middle">{{each.subjects}}</td>
+        <td style="vertical-align: middle" rowspan="2"><span class="district">{{each.district}} | </span>{{each.address}}</td>
+        <td style="vertical-align: middle">{{each.frequency}} b/tuần</td>
+        <td style="vertical-align: middle">{{each.fee_expected|intcomma}}</td>
+        <td style="vertical-align: middle" rowspan="2">{{each.sex_require}}</td>
+        <td style="vertical-align: middle" rowspan="2"><a href="{%url 'enroll:enroll'%}">button</a></td>
+    </tr>
+    <tr>
+
+        <td colspan="2">{{each.teaching_time}}</td>
+        <td colspan="2">{{each.date_start|date:'d/m/Y'}}</td>
+
+    </tr>
+    </tbody>
+    {%endfor%}
+</table>
+
+
+{%endblock%}
